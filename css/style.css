@@ -1,0 +1,159 @@
+/* css/style.css */
+
+/* --- FONT IMPORT --- */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&family=Pacifico&family=Lobster&display=swap');
+
+/* --- GLOBAL BODY STYLES & RESETS --- */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    color: #333;
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+*, *::before, *::after { box-sizing: inherit; }
+
+/* --- NỀN GRADIENT MỚI CHO LOGIN VÀ MESSAGE PAGE --- */
+body.login-page, body.message-page {
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    color: #fff; 
+    text-align: center;
+
+    /* Sử dụng các màu bạn đã chọn */
+    background: linear-gradient(130deg, 
+        #B8B8F8, /* Tím nhạt/Lavender */
+        #FDB7EA, /* Hồng (màu bạn chỉ định) */
+        #FFDAB9, /* Cam đào nhạt */
+        #FFFACD, /* Vàng kem */
+        #B8B8F8  /* Lặp lại màu đầu để tạo vòng lặp mượt */
+    );
+    background-size: 450% 450%; /* Điều chỉnh kích thước nền */
+    animation: pastelDreamGradient 30s ease infinite alternate;
+}
+
+@keyframes pastelDreamGradient {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+
+/* --- HIỆU ỨNG NỀN CHUNG (SAO, HÀNH TINH, TRÁI TIM) --- */
+/* (Giữ nguyên toàn bộ phần .stars-background-css-effects, .planets, .planet, .hearts-container, 
+   .heart-char, và các @keyframes orbit1, orbit2, fallAndFade như ở phiên bản trước) 
+   Đây là ví dụ rút gọn, bạn hãy copy đầy đủ từ phiên bản trước vào đây.
+*/
+.stars-background-css-effects { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; /* ... */ }
+.planets { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.planet { position: absolute; opacity: 0.65; }
+.planet1 { width: clamp(90px, 14vw, 170px); top: 10%; left: 8%; animation: orbit1 40s linear infinite; }
+.planet2 { width: clamp(60px, 9vw, 110px); bottom: 10%; right: 10%; animation: orbit2 55s linear infinite alternate; }
+@keyframes orbit1 { 0% { transform: translate(0, 0) rotate(0deg) translateX(clamp(18px, 2.5vw, 28px)) rotate(0deg) scale(0.95); } 50% { transform: translate(5px, 5px) rotate(180deg) translateX(clamp(18px, 2.5vw, 28px)) rotate(-180deg) scale(1.05); } 100% { transform: translate(0, 0) rotate(360deg) translateX(clamp(18px, 2.5vw, 28px)) rotate(-360deg) scale(0.95); } }
+@keyframes orbit2 { 0% { transform: translate(0, 0) rotate(0deg) translateX(clamp(22px, 3.5vw, 38px)) translateY(clamp(5px, 1vw, 10px)) rotate(0deg) scale(1); } 100% { transform: translate(0, 0) rotate(360deg) translateX(clamp(22px, 3.5vw, 38px)) translateY(clamp(5px, 1vw, 10px)) rotate(-360deg) scale(1.1); } }
+.hearts-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
+.heart-char { position: absolute; color: rgba(255, 50, 50, 0.65); font-size: clamp(10px, 1.8vw, 20px); animation: fallAndFade 8s linear infinite; user-select: none; text-shadow: 0 0 6px rgba(255,120,120,0.6); }
+@keyframes fallAndFade { 0% { transform: translateY(-5vh) translateX(0) rotate(0deg) scale(1); opacity: 1; } 100% { transform: translateY(105vh) translateX(calc(50vw - 50%)) rotate(720deg) scale(0.3); opacity: 0; } }
+
+
+/* --- TRANG ĐĂNG NHẬP (index.html) --- */
+.login-page { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.login-page .login-container {
+    background: rgba(25, 10, 55, 0.8); /* Giữ lại nền tối cho khung login để chữ nổi bật */
+    padding: clamp(30px, 6vw, 45px);
+    border-radius: 25px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25), 0 0 20px rgba(180, 160, 230, 0.2) inset; /* Điều chỉnh bóng đổ */
+    z-index: 2;
+    max-width: 450px;
+    width: 90%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: transform 0.35s ease-out, box-shadow 0.35s ease-out;
+}
+/* ... (Giữ nguyên các style con của .login-container: h1, p, label, input, button, .error-message từ phiên bản trước) ... */
+.login-page .login-container:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3), 0 0 25px rgba(200, 180, 255, 0.3) inset; }
+.login-container h1 { font-family: 'Lobster', cursive; color: #f8da77; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin-bottom: 18px; font-size: clamp(2em, 6vw, 2.5em); }
+.login-container p:not(#errorMessage) { color: #e8e0f0; margin-bottom: 30px; font-size: clamp(1.05em, 2.8vw, 1.2em); }
+.login-container label { display: block; margin-bottom: 8px; color: #f5f5f5; text-align: left; font-size: clamp(0.95em, 2.4vw, 1.05em); }
+.login-container input[type="text"], .login-container input[type="password"] { width: 100%; box-sizing: border-box; padding: 13px; margin-bottom: 20px; border: 1px solid #888; border-radius: 10px; background-color: rgba(255, 255, 255, 0.08); color: #fff; font-size: clamp(0.95em, 2.6vw, 1.05em); }
+.login-container input[type="text"]::placeholder, .login-container input[type="password"]::placeholder { color: #bbb; }
+.login-container button { background: linear-gradient(45deg, #f06292, #ce93d8); color: white; padding: 14px 35px; border: none; border-radius: 30px; cursor: pointer; font-size: clamp(1.05em, 3.2vw, 1.2em); font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.25); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); background-size: 150% auto; background-position: 0% 50%; }
+.login-container button:hover { background-position: 100% 50%; transform: translateY(-5px) scale(1.06); box-shadow: 0 10px 20px rgba(236, 64, 122, 0.3), 0 5px 10px rgba(0,0,0,0.2); }
+.login-container button:active { transform: translateY(-2px) scale(1.03); box-shadow: 0 3px 10px rgba(236, 64, 122, 0.2); }
+.error-message { color: #ff9a9e; margin-top: 15px; font-weight: bold; min-height: 22px; opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease-out, transform 0.3s ease-out; visibility: hidden; font-size: clamp(0.9em, 2.2vw, 1em); }
+.error-message.show { opacity: 1; transform: translateY(0); visibility: visible; }
+
+
+/* --- TRANG LỜI NHẮN (message.html) --- */
+.message-page { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;}
+.message-page .message-box-wrapper {
+    width: 100%; display: flex; justify-content: center; align-items: center;
+    z-index: 2; opacity: 0; transform: scale(0.9);
+}
+.message-page .message-box {
+    background: rgba(255, 255, 255, 0.92); /* Nền trắng hơn cho message box để chữ dễ đọc */
+    padding: clamp(30px, 5vw, 45px);
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1), 0 0 20px rgba(200,150,150,0.2) inset; /* Bóng đổ nhẹ */
+    max-width: 700px;
+    width: 90%;
+    border: 1px solid rgba(255, 220, 220, 0.6);
+    color: #483D8B; /* Màu chữ tối (DarkSlateBlue) để tương phản với nền sáng của box và nền động của body */
+}
+/* ... (Giữ nguyên các style con của .message-box: h1, .cute-image, .letter, .signature từ phiên bản trước) ... */
+/* ... (Giữ nguyên style cho .open-letter-container và .pulsing-letter-button từ phiên bản trước) ... */
+.message-box h1 { font-family: 'Pacifico', cursive; color: #d81b60; text-shadow: 1px 1px 1px rgba(255,255,255,0.8); margin-bottom: 25px; font-size: clamp(2em, 6vw, 2.8em); }
+.message-box .cute-image { width: clamp(90px, 18vw, 140px); margin-bottom: 30px; border-radius: 50%; box-shadow: 0 0 20px rgba(216, 120, 135, 0.6); border: 4px solid white; padding: 3px; background-color: #fff; }
+.message-box .letter { text-align: left; font-size: clamp(1.05em, 2.8vw, 1.2em); line-height: 1.75; color: #4a2c2a; background: rgba(255,245,248,0.7); padding: clamp(20px, 4vw, 30px); border-radius: 20px; box-shadow: inset 0 2px 8px rgba(0,0,0,0.06); }
+.message-box .letter p { margin-bottom: 1.3em; }
+.message-box .letter .signature { text-align: right; font-style: normal; margin-top: 30px; font-weight: normal; color: #bf105a; font-family: 'Pacifico', cursive; font-size: 1.25em; }
+.message-page .open-letter-container { text-align: center; z-index: 3; position: relative; }
+.message-page .pulsing-letter-button { background: linear-gradient(45deg, #ff4081, #ff79b0); color: white; border: none; padding: clamp(18px, 4vw, 22px) clamp(25px, 6vw, 35px); border-radius: 60px; font-size: clamp(1.6em, 6.5vw, 2.2em); cursor: pointer; box-shadow: 0 10px 30px rgba(255, 64, 129, 0.45); transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease-out; display: inline-flex; align-items: center; gap: 12px; animation: pulseLetter 2.2s infinite ease-in-out; }
+.message-page .pulsing-letter-button .button-text { font-size: 0.55em; font-weight: bold; }
+@keyframes pulseLetter { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+.message-page .pulsing-letter-button:hover { transform: scale(1.08); }
+.message-page .instruction-open-letter { margin-top: 18px; color: #fff; font-size: clamp(1.05em, 2.6vw, 1.15em); text-shadow: 1px 1px 4px rgba(0,0,0,0.6); }
+
+
+/* --- TRANG TẢI (loading.html - Kéo thư) --- */
+.loading-page {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(120deg, #74ebd5 0%, #ACB6E5 100%); /* Nền xanh mint - tím nhạt cho loading */
+    padding: 20px; box-sizing: border-box; color: #fff; text-align: center;
+}
+/* ... (Giữ nguyên toàn bộ style cho .loading-container và các thành phần con của nó từ phiên bản đầy đủ trước) ... */
+.loading-container { z-index: 1; background-color: rgba(0, 0, 0, 0.2); padding: clamp(25px, 5vw, 40px); border-radius: 20px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25); width: 90%; max-width: 500px; }
+.loading-container h2 { color: #fff2cc; margin-bottom: 10px; font-size: clamp(1.8em, 5vw, 2.5em); text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+.loading-page .instruction-text { font-size: clamp(0.9em, 2.5vw, 1.1em); color: #f0f0f0; margin-bottom: 35px; }
+.slider-container { width: 90%; max-width: 400px; margin: 30px auto; position: relative; user-select: none; }
+.slider-track { width: 100%; height: 55px; background-color: rgba(0, 0, 0, 0.3); border-radius: 27.5px; border: 2px solid rgba(255, 255, 255, 0.15); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.track-text { color: rgba(255, 255, 255, 0.25); font-weight: bold; letter-spacing: 2px; font-size: clamp(0.7em, 2vw, 0.85em); transition: opacity 0.3s ease; text-transform: uppercase; }
+.slider-progress { position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: linear-gradient(90deg, #ff8aae, #ffaddd); border-radius: 27.5px; }
+.letter-icon { position: absolute; left: 0px; top: 50%; transform: translateY(-50%); width: 51px; height: 51px; background-color: #ff69b4; border-radius: 50%; box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25); display: flex; align-items: center; justify-content: center; font-size: clamp(22px, 5vw, 26px); cursor: grab; z-index: 2; transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease; }
+body.dragging .letter-icon, body.dragging { cursor: grabbing; } /* Sửa selector cho body.dragging */
+.letter-icon:hover { transform: translateY(-50%) scale(1.08); box-shadow: 0 5px 18px rgba(0, 0, 0, 0.3); }
+.slider-container.completed .letter-icon { background-color: #5cb85c; cursor: default; animation: bounceSuccess 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.slider-container.completed .track-text { opacity: 0; }
+@keyframes bounceSuccess { 0% { transform: translateY(-50%) scale(1); } 50% { transform: translateY(-50%) scale(1.15); } 100% { transform: translateY(-50%) scale(1); } }
+#loadingText { font-size: clamp(1em, 2.8vw, 1.15em); color: #f0f0f0; margin-top: 20px; margin-bottom: 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+#revealButton { background: linear-gradient(45deg, #a0fe65, #69ff97); color: #1e562f; padding: clamp(14px, 3.5vw, 18px) clamp(28px, 7vw, 38px); border: none; border-radius: 50px; font-size: clamp(1.1em, 3.5vw, 1.4em); font-weight: bold; text-shadow: 1px 1px 1px rgba(255,255,255,0.3); cursor: pointer; box-shadow: 0 6px 20px rgba(76, 175, 80, 0.35), 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease-out, background-position 0.5s ease; background-size: 200% auto; background-position: 0% 50%; outline: none; animation: pulseButton 2s infinite ease-in-out; }
+#revealButton:hover { background-position: 100% 50%; transform: scale(1.05); box-shadow: 0 10px 30px rgba(76, 175, 80, 0.45), 0 4px 8px rgba(0,0,0,0.15); }
+#revealButton:active { transform: scale(0.95); box-shadow: 0 3px 10px rgba(76, 175, 80, 0.3), 0 1px 3px rgba(0,0,0,0.1); }
+/* Nếu pulseButton chưa có, bạn có thể thêm keyframes đã định nghĩa ở message page */
+
+
+/* --- TRANG BẮT ĐẦU GAME (adventure-start-page) --- */
+.adventure-start-page {
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    text-align: center; padding: 20px;
+}
+/* ... (Giữ nguyên style cho .start-container và #startGameButton từ phiên bản đầy đủ trước) ... */
+.start-container { background-color: rgba(255, 255, 255, 0.85); padding: clamp(30px, 6vw, 50px); border-radius: 25px; box-shadow: 0 12px 35px rgba(0,0,0,0.12); }
+.start-container h1 { color: #e55d42; margin-bottom: 20px; font-size: clamp(1.8em, 5vw, 2.5em); font-family: 'Lobster', cursive; }
+.start-container p { color: #444; margin-bottom: 30px; font-size: clamp(1.1em, 3vw, 1.25em); }
+#startGameButton { background: linear-gradient(45deg, #56ab2f, #a8e063); color: white; padding: 15px 35px; border: none; border-radius: 30px; font-size: clamp(1.2em, 3.5vw, 1.4em); font-weight: bold; cursor: pointer; transition: transform 0.25s ease, box-shadow 0.25s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
+#startGameButton:hover { transform: scale(1.07) translateY(-3px); box-shadow: 0 8px 20px rgba(67, 160, 71, 0.3); }

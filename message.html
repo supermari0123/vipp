@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lời Nhắn Yêu Thương!</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="message-page">
+    <!-- Nền vẫn giữ nguyên -->
+    <div class="stars-background"></div> <!-- Hoặc nền hồng của bạn -->
+
+    <!-- Nút Mở Thư sẽ hiển thị ban đầu -->
+    <div class="open-letter-container" id="openLetterContainer">
+        <button id="openLetterButton" class="pulsing-letter-button">
+            💌 <span class="button-text">Mở Thư Yêu Thương</span>
+        </button>
+        <p class="instruction-open-letter">Chạm vào cánh thư để đọc lời nhắn nhé!</p>
+    </div>
+
+    <!-- Hộp thư và nội dung sẽ ẩn ban đầu -->
+    <div class="message-box-wrapper" id="messageBoxWrapper" style="display: none; opacity: 0;">
+        <div class="message-box">
+            <h1>Gửi Nguời bạn Đáng Yêu Nhất!</h1>
+            <img src="assets/Bear Love GIF.gif" alt="Gấu ôm tim" class="cute-image">
+            <div class="letter">
+               <p>Chúc mừng ngày Quốc tế Thiếu nhi 1/6 nhé, người bạn tuyệt vời của tớ!</p> <p>Hôm nay là một ngày đặc biệt dành cho những tâm hồn trong trẻo và đáng yêu nhất, và với tớ, cậu chắc chắn là một trong số đó. Tớ mong rằng cậu sẽ luôn giữ được sự hồn nhiên, vui vẻ và lạc quan như bây giờ — dù thời gian có trôi qua, dù cuộc sống có thay đổi thế nào đi nữa.</p> <p>Mỗi ngày trôi qua, dù có mệt mỏi hay áp lực, hãy nhớ rằng vẫn luôn có những người bạn như tớ ở bên cạnh, luôn sẵn sàng lắng nghe, chia sẻ và cổ vũ cậu. Cuộc sống này có thể rộng lớn, phức tạp, đôi lúc khiến ta thấy lạc lõng, nhưng cậu đừng lo, vì tớ luôn tin rằng cậu đủ mạnh mẽ để vượt qua tất cả.</p> <p>Tớ mong cậu luôn khỏe mạnh, ăn uống đầy đủ, ngủ thật sâu, cười thật tươi và giữ cho trái tim luôn ấm áp. Hãy chăm sóc bản thân thật tốt, và đừng quên thỉnh thoảng cũng nên tự thưởng cho mình những giây phút thư giãn, vui chơi đúng nghĩa — vì cậu xứng đáng được hạnh phúc.</p> <p>À mà này, nhớ học hành chăm chỉ hơn một chút nha! Ngủ thì cũng phải ngủ cho đủ nhưng đừng ngủ “quên” cả thế giới như mọi khi nữa đó. Kiến thức là hành trang quan trọng mà chúng mình đang cùng nhau xây dựng, nên cố gắng cùng nhau nhé!</p> <p>Cảm ơn cậu vì đã là một người bạn tuyệt vời trong cuộc đời tớ. Tớ thật sự trân trọng tình bạn này rất nhiều.</p> <p class="signature">- Một người bạn luôn quý cậu -</p>
+            </div>
+        </div>
+    </div>
+
+    <audio id="messageMusic" src="assets/1.mp3" loop></audio>
+
+    <script>
+        // Xóa trạng thái đăng nhập (nếu có)
+        localStorage.removeItem('isLoggedIn');
+
+        const openLetterButton = document.getElementById('openLetterButton');
+        const openLetterContainer = document.getElementById('openLetterContainer');
+        const messageBoxWrapper = document.getElementById('messageBoxWrapper');
+        const messageMusic = document.getElementById('messageMusic');
+
+        openLetterButton.addEventListener('click', () => {
+            // 1. Phát nhạc
+            if (messageMusic) {
+                messageMusic.play().catch(error => {
+                    console.error("Lỗi phát nhạc thư:", error);
+                    // Có thể thông báo cho người dùng nếu không phát được nhạc
+                });
+            }
+
+            // 2. Ẩn nút mở thư với hiệu ứng
+            openLetterContainer.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            openLetterContainer.style.opacity = '0';
+            openLetterContainer.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                openLetterContainer.style.display = 'none';
+            }, 500); // Thời gian khớp với transition
+
+            // 3. Hiện hộp thư với hiệu ứng
+            messageBoxWrapper.style.display = 'flex'; // Hoặc 'block' tùy theo cách bạn muốn căn giữa
+            setTimeout(() => { // Đợi một chút để display có tác dụng trước khi transition opacity
+                messageBoxWrapper.style.transition = 'opacity 0.8s ease-in 0.3s, transform 0.8s ease-in 0.3s'; // Thêm delay nhỏ
+                messageBoxWrapper.style.opacity = '1';
+                messageBoxWrapper.style.transform = 'scale(1)'; // Nếu muốn hiệu ứng scale khi hiện
+            }, 50);
+        });
+    </script>
+</body>
+</html>

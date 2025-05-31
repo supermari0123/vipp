@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sẵn Sàng Cho Chuyến Phiêu Lưu?</title>
+    <link rel="stylesheet" href="css/style.css"> <!-- Dùng chung style.css hoặc tạo style riêng -->
+</head>
+<body class="adventure-start-page"> <!-- Class mới cho trang này -->
+    <div class="start-container">
+        <h1>Một Hành Trình Đặc Biệt Sắp Bắt Đầu!</h1>
+        <p>Bé yêu đã sẵn sàng chưa nào?</p>
+        <button id="startGameButton">Bắt Đầu Ngay!</button>
+    </div>
+    <script>
+        // localStorage.removeItem('isLoggedIn'); // Có thể không cần nếu không có đăng nhập ở đây
+        document.getElementById('startGameButton').addEventListener('click', function() {
+            // Tùy chọn: Phát âm thanh click
+            window.location.href = 'block-shooter-game.html';
+        });
+		document.getElementById('startGameButton').addEventListener('click', function() {
+    window.location.href = 'block-shooter-game.html';
+});
+    </script>
+</body>
+</html>
